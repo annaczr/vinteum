@@ -3,6 +3,9 @@ import SnapKit
 
 class ViewController: UIViewController {
     
+    private let backgroundImage = UIImage(named: "HomeBackground")
+
+    
     let text: UILabel = {
         let text = UILabel()
         text.text = "vinte-um"
@@ -15,6 +18,14 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        
+        let backgroundImageView = UIImageView(image: self.backgroundImage)
+        backgroundImageView.contentMode = .scaleAspectFill
+        self.view.addSubview(backgroundImageView)
+        backgroundImageView.snp.makeConstraints{ make in
+            make.edges.equalToSuperview()
+        }
+
         
         self.view.addSubview(text)
         text.snp.makeConstraints{ make in
