@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2800683E2B19FFD6001E1A9C /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2800683D2B19FFD6001E1A9C /* GameViewController.swift */; };
 		281EE2DD2B16303A00862D56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281EE2DC2B16303A00862D56 /* AppDelegate.swift */; };
 		281EE2E12B16303A00862D56 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281EE2E02B16303A00862D56 /* ViewController.swift */; };
 		281EE2E62B16303C00862D56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 281EE2E52B16303C00862D56 /* Assets.xcassets */; };
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		048B2FE1A580B01AFEC92CD5 /* Pods-vinteum-vinteumUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vinteum-vinteumUITests.release.xcconfig"; path = "Target Support Files/Pods-vinteum-vinteumUITests/Pods-vinteum-vinteumUITests.release.xcconfig"; sourceTree = "<group>"; };
 		19A53742FCC80E767908094E /* Pods_vinteum.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_vinteum.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2800683D2B19FFD6001E1A9C /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		281EE2D92B16303A00862D56 /* vinteum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vinteum.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		281EE2DC2B16303A00862D56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		281EE2E02B16303A00862D56 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				281EE2DC2B16303A00862D56 /* AppDelegate.swift */,
+				2800683D2B19FFD6001E1A9C /* GameViewController.swift */,
 				281EE2E02B16303A00862D56 /* ViewController.swift */,
 				281EE2E52B16303C00862D56 /* Assets.xcassets */,
 				281EE2E72B16303C00862D56 /* LaunchScreen.storyboard */,
@@ -400,6 +403,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				281EE2E12B16303A00862D56 /* ViewController.swift in Sources */,
+				2800683E2B19FFD6001E1A9C /* GameViewController.swift in Sources */,
 				281EE2DD2B16303A00862D56 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

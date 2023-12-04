@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
     
     private let backgroundImage = UIImage(named: "HomeBackground")
 
@@ -29,7 +29,7 @@ class ViewController: UIViewController {
         
         self.view.addSubview(text)
         text.snp.makeConstraints{ make in
-            make.centerX.equalToSuperview()
+            make.centerX.equalTo(view)
             make.top.equalToSuperview().offset(250)
         }
     }
