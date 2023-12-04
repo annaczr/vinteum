@@ -3,7 +3,8 @@ import SnapKit
 
 class ViewController: UIViewController {
     
-    private let backgroundImage = UIImage(named: "HomeBackground")
+    private let backgroundImage = UIImage(named: "HomeBackGround")
+
     
     private let button: UIButton = {
         let button = UIButton()
@@ -60,9 +61,6 @@ class ViewController: UIViewController {
 
         @objc private func didTapButton(){
             let mainController = MainController()
-//            addChild(mainController)
-//            view.addSubview(mainController.view)
-//            mainController.didMove(toParent: self)
           navigationController?.pushViewController(mainController, animated: true)
         }
 
