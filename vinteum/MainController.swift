@@ -25,15 +25,11 @@ class MainController: UIViewController{
     }
     
     //Criando a struct do Deck de cartas
-    private struct Cards: Codable {
-
-        var value:Int;
+    private struct Card: Codable {
         
-        var code:String;
+        var code: String;
         
-        var image:String;
-        
-        var suit:String;
+        var value: String;
     }
     
     private var deckId:String = ""
@@ -42,11 +38,10 @@ class MainController: UIViewController{
         super.viewDidLoad()
         
         //Chamando função de criação de Deck
-        let mainInteractor = MainInteractor(sessionDelegate:self)
-        mainInteractor.newDeck(){ deck in
-            self.deckId = deck.deck_id
+        let mainInteractor = MainInteractor()
+        mainInteractor.newDeck(){ deckId in
+            self.deckId = deckId
         }
-        print(self.deckId)
         
         //Settando background branco
         self.view.backgroundColor = .white
@@ -68,15 +63,10 @@ class MainController: UIViewController{
         }
         
     @objc private func didTapImage(){
-        let mainInteractor = MainInteractor(sessionDelegate: self)
-        mainInteractor.newCard(deckId: self.deckId){card in
-            print(card.deck_id)
-            print(card.code)
-                }
-    }
-}
-extension MainController: URLSessionDelegate {
-    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        completionHandler(.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
+        var deck_id:String = self.deckId;
+        let mainInteractor = MainInteractor()
+        mainInteractor.newCard(deckId: deck_id){card in
+            print(card.cards[0])
+        }
     }
 }
