@@ -28,11 +28,14 @@ class ViewController: UIViewController {
         override func viewDidLoad() {
             super.viewDidLoad()
             
+            //Retirando o botão de back
+            self.navigationItem.hidesBackButton = true
+            
             //Settando titulo da pagina
             self.view.addSubview(titulo)
                 titulo.snp.makeConstraints{ make in
                   make.centerX.equalToSuperview()
-                  make.top.equalToSuperview().offset(250)
+                    make.centerY.equalToSuperview()
                 }
             
             
@@ -46,7 +49,7 @@ class ViewController: UIViewController {
             }
 
             //Settando botão e adicionando funcionalidade
-            self.button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+            self.button.addTarget(self, action: #selector(self.newGame), for: .touchUpInside)
 
             self.view.addSubview(button)
             button.translatesAutoresizingMaskIntoConstraints = false
@@ -59,10 +62,9 @@ class ViewController: UIViewController {
             
           }
 
-        @objc private func didTapButton(){
+        @objc private func newGame(){
             let mainController = MainController()
           navigationController?.pushViewController(mainController, animated: true)
         }
-
 
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		280FFB4C2B20ADA9009872FC /* ModalLooseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280FFB4B2B20ADA9009872FC /* ModalLooseController.swift */; };
+		280FFB4E2B20ADD3009872FC /* ModalVictoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280FFB4D2B20ADD3009872FC /* ModalVictoryController.swift */; };
 		281EE2DD2B16303A00862D56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281EE2DC2B16303A00862D56 /* AppDelegate.swift */; };
 		281EE2E12B16303A00862D56 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281EE2E02B16303A00862D56 /* ViewController.swift */; };
 		281EE2E62B16303C00862D56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 281EE2E52B16303C00862D56 /* Assets.xcassets */; };
@@ -41,6 +43,8 @@
 /* Begin PBXFileReference section */
 		048B2FE1A580B01AFEC92CD5 /* Pods-vinteum-vinteumUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vinteum-vinteumUITests.release.xcconfig"; path = "Target Support Files/Pods-vinteum-vinteumUITests/Pods-vinteum-vinteumUITests.release.xcconfig"; sourceTree = "<group>"; };
 		19A53742FCC80E767908094E /* Pods_vinteum.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_vinteum.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		280FFB4B2B20ADA9009872FC /* ModalLooseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalLooseController.swift; sourceTree = "<group>"; };
+		280FFB4D2B20ADD3009872FC /* ModalVictoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalVictoryController.swift; sourceTree = "<group>"; };
 		281EE2D92B16303A00862D56 /* vinteum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vinteum.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		281EE2DC2B16303A00862D56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		281EE2E02B16303A00862D56 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -123,6 +127,8 @@
 				281EE2E52B16303C00862D56 /* Assets.xcassets */,
 				281EE2E72B16303C00862D56 /* LaunchScreen.storyboard */,
 				281EE2EA2B16303C00862D56 /* Info.plist */,
+				280FFB4B2B20ADA9009872FC /* ModalLooseController.swift */,
+				280FFB4D2B20ADD3009872FC /* ModalVictoryController.swift */,
 			);
 			path = vinteum;
 			sourceTree = "<group>";
@@ -407,7 +413,9 @@
 			files = (
 				281EE2E12B16303A00862D56 /* ViewController.swift in Sources */,
 				3155382A2B17850000EC96DC /* MainController.swift in Sources */,
+				280FFB4E2B20ADD3009872FC /* ModalVictoryController.swift in Sources */,
 				281EE2DD2B16303A00862D56 /* AppDelegate.swift in Sources */,
+				280FFB4C2B20ADA9009872FC /* ModalLooseController.swift in Sources */,
 				31F1E5712B1A0AEC008C5D30 /* MainInteractor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

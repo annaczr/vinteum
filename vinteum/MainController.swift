@@ -4,6 +4,33 @@ import SnapKit
 
 class MainController: UIViewController{
     
+    //Criando a struct do Deck de cartas
+    private struct Deck: Codable {
+        var deck_id: String;
+    }
+    
+    //Criando a struct do Deck de cartas
+    private struct Cards: Codable {
+        var value:String;
+        var code:String;
+    }
+    
+    //Criando as variaveis a serem usadas
+    private var total:Int = 0
+    private var deckId:String = ""
+    
+    //Criando botão de parada
+    private let button: UIButton = {
+        let button = UIButton()
+        button.setTitle("stop", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        button.backgroundColor = .red
+        button.layer.cornerRadius = 15
+        return button
+    }()
+    
+    //Criando as imagens
     private let deck: UIImageView = {
         let cards = UIImageView()
         let baralho = UIImage(named: "Baralho")
@@ -12,97 +39,122 @@ class MainController: UIViewController{
         return cards
     }()
     
+    //Criando contador
+    private var cont: UILabel = {
+        let titulo = UILabel()
+        titulo.textColor = .black
+        titulo.textAlignment = .center
+        titulo.font = UIFont.systemFont(ofSize: 40, weight: .bold)
+        return titulo
+       }()
     
-    
-    //Criando a struct do Deck de cartas
-    private struct Deck: Codable {
-        var deck_id: String;
-    }
-    
-    //Criando a struct do Deck de cartas
-    private struct Cards: Codable {
-
-        var value:Int;
+    // Criando Stack view
+        lazy var stackView: UIStackView = {
+            let stack = UIStackView()
+            stack.axis = .vertical
+            stack.spacing = -100.0
+            stack.alignment = .fill
+            stack.distribution = .fillProportionally
+            stack.axis = .horizontal
+            return stack
+        }()
         
-        var code:String;
-        
-        var image:String;
-        
-        var suit:String;
-    }
-    
-    private var deckId:String = ""
-    
-    lazy var stackView: UIStackView = {
-        let stack = UIStackView()
-        stack.backgroundColor = .red
-        stack.axis = .vertical
-        stack.spacing = -100.0
-        stack.alignment = .fill
-        stack.distribution = .fill
-        stack.axis = .horizontal
-        [self.imageCard(name: "4H"),self.imageCard(name: "2H"),self.imageCard(name: "3H"),self.imageCard(name: "0C")].enumerated().forEach { image in stack.addArrangedSubview(image.1) }
-        return stack
-    }()
-    
-    private func imageCard(name:String) -> UIImageView {
-        let imageview = UIImageView()
-        let image = UIImage(named: name)
-        imageview.image = image
-        return imageview
-    }
-    
-    private let card: UIImageView = {
-        let cards = UIImageView()
-        let baralho = UIImage(named: "0C")
-        cards.image = baralho
-        cards.isUserInteractionEnabled = true
-        return cards
-    }()
+        private func imageCard(name:String) -> UIImageView {
+            let imageview = UIImageView()
+            let image = UIImage(named: name)
+            imageview.image = image
+            return imageview
+        }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = .black
-        
-        
-//        let cardsView = CardsView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-//        cardsView.images = ["AS","AS","AS"]
-//        self.cardView.addSubview(cardsView)
-
-
-        
-        view.addSubview(stackView)
-        stackView.snp.makeConstraints { (make) in
-            make.centerX.left.right.equalToSuperview()
-            make.top.equalTo(0).offset(30)
-            make.height.equalTo(400)
+        //Chamando função de criação de Deck
+        let mainInteractor = MainInteractor()
+        mainInteractor.newDeck(){ deckId in
+            self.deckId = deckId
+            //Comprando uma carta automaticamente para o usuario
+            self.drawCard()
         }
-//
         
-
-        //Adding and setting up the button
-//        self.view.addSubview(self.deck)
-
-//        let click = UITapGestureRecognizer(target: self, action: #selector(self.didTapImage))
-//        self.deck.addGestureRecognizer(click)
-//
-//        self.deck.snp.makeConstraints { make in
-//            make.centerX.equalToSuperview()
-//            make.top.equalToSuperview().offset(50)
-//        }
+        //Settando background branco
+        self.view.backgroundColor = .white
+        
+        
+        //Adicionado e colocando funcionalidade no botão de comprar cartas
+        self.view.addSubview(self.deck)
+        
+        let click = UITapGestureRecognizer(target: self, action: #selector(self.drawCard))
+        self.deck.addGestureRecognizer(click)
+        
+        self.deck.snp.makeConstraints{ make in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(50)
+        }
+        
+        //Adicionando o contador
+        self.view.addSubview(self.cont)
+        self.cont.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
+        
+        self.view.addSubview(stackView)
+         stackView.snp.makeConstraints { (make) in
+             make.centerX.left.right.equalToSuperview()
+             make.bottom.equalToSuperview().offset(30)
+             make.height.equalTo(400)
+         }
     }
         
-    @objc private func didTapImage(){
-        let mainInteractor = MainInteractor(sessionDelegate: self)
+    @objc private func drawCard(){
+        //Instanciando MainInteractor
+        let mainInteractor = MainInteractor()
+        
+        //Chamada da função newCard
         mainInteractor.newCard(deckId: self.deckId){card in
-            print(card.deck_id)
-            print(card.code)
-        }
-    }
-}
-extension MainController: URLSessionDelegate {
-    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        completionHandler(.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
+            DispatchQueue.main.async {
+                            self.stackView.addArrangedSubview(self.imageCard(name: card.cards[0].code))
+            }
+            
+            if(card.cards[0].value.uppercased() == "QUEEN" || card.cards[0].value.uppercased() == "JACK" || card.cards[0].value.uppercased() == "KING"){
+                self.total += 10
+            }
+            else if (card.cards[0].value.uppercased() == "ACE"){
+                self.total += 1
+            }
+            else{
+                self.total += Int(card.cards[0].value)!
+            }
+            
+            DispatchQueue.main.async{
+                self.cont.text = "Total: \(self.total)"
+            }
+            
+            if (self.total > 21){
+                //Retirando funcionalidade de comprar cartas
+                let click = UITapGestureRecognizer(target: self, action: #selector(self.drawCard))
+                DispatchQueue.main.async{
+                    self.deck.removeGestureRecognizer(click)
+                    //Adicionando o modal de derrota
+                    let modalLoose = ModalLooseController()
+                    modalLoose.modalPresentationStyle = .currentContext
+                    
+                    self.present(modalLoose, animated: true, completion: nil)
+                }
+            }
+            else if (self.total == 21){
+                //Retirando funcionalidade de comprar cartas
+                let click = UITapGestureRecognizer(target: self, action: #selector(self.drawCard))
+                DispatchQueue.main.async{
+                    self.deck.removeGestureRecognizer(click)
+                    //Abrindo o modal de vitoria
+                    let modalVictory = ModalVictoryController()
+                    modalVictory.modalPresentationStyle = .currentContext
+                    
+                    self.present(modalVictory, animated: true, completion: nil)
+                }
+            }
+                }
     }
 }
