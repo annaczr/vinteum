@@ -66,7 +66,7 @@ class MainController: UIViewController{
         var deck_id:String = self.deckId;
         let mainInteractor = MainInteractor()
         mainInteractor.newCard(deckId: deck_id){card in
-            print(card.cards[0])
+            print(card.cards[0].value)
         }
     }
 }
