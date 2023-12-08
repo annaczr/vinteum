@@ -31,14 +31,6 @@ class ViewController: UIViewController {
             //Retirando o botão de back
             self.navigationItem.hidesBackButton = true
             
-            //Settando titulo da pagina
-            self.view.addSubview(titulo)
-                titulo.snp.makeConstraints{ make in
-                  make.centerX.equalToSuperview()
-                    make.centerY.equalToSuperview()
-                }
-            
-            
             //Settando a imagem como background
             let backgroundImageView = UIImageView(image: backgroundImage)
             backgroundImageView.contentMode = .scaleAspectFill
@@ -47,6 +39,13 @@ class ViewController: UIViewController {
             backgroundImageView.snp.makeConstraints{ make in
                 make.edges.equalToSuperview()
             }
+            
+            //Settando titulo da pagina
+            self.view.addSubview(self.titulo)
+            titulo.snp.makeConstraints{ make in
+                  make.centerX.equalToSuperview()
+                make.centerY.equalToSuperview().offset(-200)
+                }
 
             //Settando botão e adicionando funcionalidade
             self.button.addTarget(self, action: #selector(self.newGame), for: .touchUpInside)

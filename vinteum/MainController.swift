@@ -39,6 +39,22 @@ class MainController: UIViewController{
         return cards
     }()
     
+    private let bomb: UIImageView = {
+        let cards = UIImageView()
+        let baralho = UIImage(named: "Bomb")
+        cards.image = baralho
+        cards.isUserInteractionEnabled = true
+        return cards
+    }()
+    
+    private let victory: UIImageView = {
+        let cards = UIImageView()
+        let baralho = UIImage(named: "Victory")
+        cards.image = baralho
+        cards.isUserInteractionEnabled = true
+        return cards
+    }()
+    
     //Criando contador
     private var cont: UILabel = {
         let titulo = UILabel()
@@ -99,8 +115,8 @@ class MainController: UIViewController{
             make.centerY.equalToSuperview()
         }
         
-        self.view.addSubview(stackView)
-         stackView.snp.makeConstraints { (make) in
+        self.view.addSubview(self.stackView)
+         stackView.snp.makeConstraints { make in
              make.centerX.left.right.equalToSuperview()
              make.bottom.equalToSuperview().offset(30)
              make.height.equalTo(400)
@@ -132,9 +148,19 @@ class MainController: UIViewController{
             }
             
             if (self.total > 21){
+                
+                //Adicionando imagem de derrota
+                DispatchQueue.main.async{
+                    self.view.addSubview(self.bomb)
+                    self.bomb.snp.makeConstraints { make in
+                        make.centerX.equalToSuperview().offset(110)
+                        make.centerY.equalToSuperview()
+                        }
+                }
+                
                 //Retirando funcionalidade de comprar cartas
                 let click = UITapGestureRecognizer(target: self, action: #selector(self.drawCard))
-                DispatchQueue.main.async{
+                DispatchQueue.main.asyncAfter(deadline: .now()+2){
                     self.deck.removeGestureRecognizer(click)
                     //Adicionando o modal de derrota
                     let modalLoose = ModalLooseController()
@@ -144,9 +170,19 @@ class MainController: UIViewController{
                 }
             }
             else if (self.total == 21){
+                
+                //Adicionando imagem de vitória
+                DispatchQueue.main.async {
+                self.view.addSubview(self.victory)
+                self.victory.snp.makeConstraints { make in
+                    make.centerX.equalToSuperview().offset(110)
+                    make.centerY.equalToSuperview()
+                        }
+                }
+                
                 //Retirando funcionalidade de comprar cartas
                 let click = UITapGestureRecognizer(target: self, action: #selector(self.drawCard))
-                DispatchQueue.main.async{
+                DispatchQueue.main.asyncAfter(deadline: .now()+2){
                     self.deck.removeGestureRecognizer(click)
                     //Abrindo o modal de vitoria
                     let modalVictory = ModalVictoryController()

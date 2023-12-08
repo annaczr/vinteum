@@ -124,11 +124,11 @@
 				281EE2E02B16303A00862D56 /* ViewController.swift */,
 				315538292B17850000EC96DC /* MainController.swift */,
 				31F1E5702B1A0AEC008C5D30 /* MainInteractor.swift */,
+				280FFB4B2B20ADA9009872FC /* ModalLooseController.swift */,
+				280FFB4D2B20ADD3009872FC /* ModalVictoryController.swift */,
 				281EE2E52B16303C00862D56 /* Assets.xcassets */,
 				281EE2E72B16303C00862D56 /* LaunchScreen.storyboard */,
 				281EE2EA2B16303C00862D56 /* Info.plist */,
-				280FFB4B2B20ADA9009872FC /* ModalLooseController.swift */,
-				280FFB4D2B20ADD3009872FC /* ModalVictoryController.swift */,
 			);
 			path = vinteum;
 			sourceTree = "<group>";
