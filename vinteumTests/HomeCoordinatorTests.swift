@@ -16,5 +16,10 @@ class HomeCoordinatorTests: XCTestCase {
     // nav controller nulo
     func testNavigationNewGame_whenNavigationControllerIsNil_shouldReturn(){
         let homeCoordinator = HomeCoordinator()
+        let viewControllerSpy = UIViewControllerSpy()
+        homeCoordinator.viewController = viewControllerSpy
+        let navigationControllerSpy = UINavigationControllerSpy()
+        
+        XCTAssertEqual(navigationControllerSpy.viewControllerResult, nil)
     }
 }

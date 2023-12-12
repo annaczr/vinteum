@@ -27,6 +27,8 @@
 		AF472D832B2201F400983A94 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF472D822B2201F400983A94 /* HomeCoordinator.swift */; };
 		AF472D852B22020700983A94 /* HomeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF472D842B22020700983A94 /* HomeFactory.swift */; };
 		AF8840C52B274BD000738782 /* HomeCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8840C42B274BD000738782 /* HomeCoordinatorTests.swift */; };
+		AFAC70D02B288D440014D669 /* UiViewControllerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAC70CF2B288D440014D669 /* UiViewControllerSpy.swift */; };
+		AFAC70D22B288EA20014D669 /* UINavigationControllerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAC70D12B288EA20014D669 /* UINavigationControllerSpy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +76,8 @@
 		AF472D822B2201F400983A94 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		AF472D842B22020700983A94 /* HomeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFactory.swift; sourceTree = "<group>"; };
 		AF8840C42B274BD000738782 /* HomeCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinatorTests.swift; sourceTree = "<group>"; };
+		AFAC70CF2B288D440014D669 /* UiViewControllerSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiViewControllerSpy.swift; sourceTree = "<group>"; };
+		AFAC70D12B288EA20014D669 /* UINavigationControllerSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerSpy.swift; sourceTree = "<group>"; };
 		B60B1A576F5FA3A3F0D22E94 /* Pods-vinteumTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vinteumTests.release.xcconfig"; path = "Target Support Files/Pods-vinteumTests/Pods-vinteumTests.release.xcconfig"; sourceTree = "<group>"; };
 		BA7B10175BD830EA962BBC69 /* Pods_vinteum_vinteumUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_vinteum_vinteumUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C08E0319A4BB9647DF4AD397 /* Pods_vinteumTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_vinteumTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -149,6 +153,7 @@
 		281EE2F22B16303C00862D56 /* vinteumTests */ = {
 			isa = PBXGroup;
 			children = (
+				AFAC70CE2B288D240014D669 /* mocks */,
 				281EE2F32B16303C00862D56 /* vinteumTests.swift */,
 				AF8840C42B274BD000738782 /* HomeCoordinatorTests.swift */,
 			);
@@ -197,6 +202,15 @@
 				AF472D842B22020700983A94 /* HomeFactory.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		AFAC70CE2B288D240014D669 /* mocks */ = {
+			isa = PBXGroup;
+			children = (
+				AFAC70CF2B288D440014D669 /* UiViewControllerSpy.swift */,
+				AFAC70D12B288EA20014D669 /* UINavigationControllerSpy.swift */,
+			);
+			path = mocks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -455,8 +469,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFAC70D22B288EA20014D669 /* UINavigationControllerSpy.swift in Sources */,
 				281EE2F42B16303C00862D56 /* vinteumTests.swift in Sources */,
 				AF8840C52B274BD000738782 /* HomeCoordinatorTests.swift in Sources */,
+				AFAC70D02B288D440014D669 /* UiViewControllerSpy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

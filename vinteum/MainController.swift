@@ -46,26 +46,26 @@ class MainController: UIViewController{
         titulo.textAlignment = .center
         titulo.font = UIFont.systemFont(ofSize: 40, weight: .bold)
         return titulo
-       }()
+    }()
     
     // Criando Stack view
-        lazy var stackView: UIStackView = {
-            let stack = UIStackView()
-            stack.axis = .vertical
-            stack.spacing = -100.0
-            stack.alignment = .fill
-            stack.distribution = .fillProportionally
-            stack.axis = .horizontal
-            return stack
-        }()
-        
-        private func imageCard(name:String) -> UIImageView {
-            let imageview = UIImageView()
-            let image = UIImage(named: name)
-            imageview.image = image
-            return imageview
-        }
-
+    lazy var stackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.spacing = -100.0
+        stack.alignment = .fill
+        stack.distribution = .fillProportionally
+        stack.axis = .horizontal
+        return stack
+    }()
+    
+    private func imageCard(name:String) -> UIImageView {
+        let imageview = UIImageView()
+        let image = UIImage(named: name)
+        imageview.image = image
+        return imageview
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -100,13 +100,13 @@ class MainController: UIViewController{
         }
         
         self.view.addSubview(stackView)
-         stackView.snp.makeConstraints { (make) in
-             make.centerX.left.right.equalToSuperview()
-             make.bottom.equalToSuperview().offset(30)
-             make.height.equalTo(400)
-         }
+        stackView.snp.makeConstraints { (make) in
+            make.centerX.left.right.equalToSuperview()
+            make.bottom.equalToSuperview().offset(30)
+            make.height.equalTo(400)
+        }
     }
-        
+    
     @objc private func drawCard(){
         //Instanciando MainInteractor
         let mainInteractor = MainInteractor()
@@ -114,7 +114,7 @@ class MainController: UIViewController{
         //Chamada da função newCard
         mainInteractor.newCard(deckId: self.deckId){card in
             DispatchQueue.main.async {
-                            self.stackView.addArrangedSubview(self.imageCard(name: card.cards[0].code))
+                self.stackView.addArrangedSubview(self.imageCard(name: card.cards[0].code))
             }
             
             if(card.cards[0].value.uppercased() == "QUEEN" || card.cards[0].value.uppercased() == "JACK" || card.cards[0].value.uppercased() == "KING"){
@@ -134,7 +134,7 @@ class MainController: UIViewController{
             if (self.total > 21){
                 //Retirando funcionalidade de comprar cartas
                 let click = UITapGestureRecognizer(target: self, action: #selector(self.drawCard))
-                DispatchQueue.main.async{
+                DispatchQueue.main.asyncAfter(deadline: .now()+2){
                     self.deck.removeGestureRecognizer(click)
                     //Adicionando o modal de derrota
                     let modalLoose = ModalLooseController()
@@ -146,7 +146,7 @@ class MainController: UIViewController{
             else if (self.total == 21){
                 //Retirando funcionalidade de comprar cartas
                 let click = UITapGestureRecognizer(target: self, action: #selector(self.drawCard))
-                DispatchQueue.main.async{
+                DispatchQueue.main.asyncAfter(deadline: .now()+2){
                     self.deck.removeGestureRecognizer(click)
                     //Abrindo o modal de vitoria
                     let modalVictory = ModalVictoryController()
@@ -155,6 +155,15 @@ class MainController: UIViewController{
                     self.present(modalVictory, animated: true, completion: nil)
                 }
             }
-                }
+            
+        }
+    }
+    
+    @objc private func didTapImage(){
+        var deck_id:String = self.deckId;
+        let mainInteractor = MainInteractor()
+        mainInteractor.newCard(deckId: deck_id){card in
+            print(card.cards[0].value)
+        }
     }
 }
