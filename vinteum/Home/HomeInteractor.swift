@@ -1,9 +1,14 @@
 import UIKit
 
-class HomeInteractor {
-    let presenter:HomePresenter;
+protocol HomeInteractorInterface{
+    func newGame()
+}
+
+
+class HomeInteractor: HomeInteractorInterface {
+    let presenter:HomePresenterInterface;
     
-    init(presenter:HomePresenter) {
+    init(presenter:HomePresenterInterface) {
         self.presenter = presenter
     }
     

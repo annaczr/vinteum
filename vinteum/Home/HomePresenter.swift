@@ -1,9 +1,9 @@
 import UIKit
 
-class HomePresenter {
-    let coordinator:HomeCoordinator
+class HomePresenter: HomePresenterInterface {
+    let coordinator:HomeCoordinatorInterface
     
-    init(coordinator:HomeCoordinator) {
+    init(coordinator:HomeCoordinatorInterface) {
         self.coordinator = coordinator
     }
     
