@@ -6,7 +6,8 @@
 //
 
 import XCTest
-@testable import vinteum
+@testable 
+import vinteum
 
 final class vinteumTests: XCTestCase {
 
