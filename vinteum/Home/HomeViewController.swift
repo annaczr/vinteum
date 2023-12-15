@@ -1,8 +1,18 @@
 import UIKit
 import SnapKit
 
-class ViewController: UIViewController {
+class HomeViewController: UIViewController {
+     var interactor: HomeInteractor?
+    init(interactor: HomeInteractor) {
+        super.init(nibName: nil, bundle: nil)
+        self.interactor = interactor
+    }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+
     private let backgroundImage = UIImage(named: "HomeBackGround")
 
     
@@ -61,10 +71,9 @@ class ViewController: UIViewController {
             
             
           }
-
-        @objc private func newGame(){
-            let mainController = MainController()
-          navigationController?.pushViewController(mainController, animated: true)
-        }
-
+    @objc
+    func newGame(){
+        interactor?.newGame()
+    }
+    
 }

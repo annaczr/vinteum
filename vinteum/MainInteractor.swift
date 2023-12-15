@@ -1,10 +1,3 @@
-//
-//  MainInteractor.swift
-//  vinteum
-//
-//  Created by Mirella Miyakawa on 28/11/23.
-//
-
 import Foundation
 
 // classes de retorno
@@ -13,15 +6,19 @@ struct Card: Codable {
     var code: String;
     
     var value: String;
+    
+    var suit: String;
 }
 
-struct Response: Codable {
+struct Response: Codable{
+    
     var deck_id: String;
     
     var cards: [Card];
 }
 
 struct Deck: Codable {
+    
     var deck_id: String;
 }
 
@@ -39,7 +36,7 @@ class MainInteractor:MainViewProtocol {
     
     
     // funções
-    func newDeck(onSucess: @escaping (String) -> Void) {
+    func newDeck(onSucess: @escaping (String) -> Void) -> Void {
         // criando uma sessão
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
@@ -49,18 +46,17 @@ class MainInteractor:MainViewProtocol {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         let task = session.dataTask(with: request) { data, response, error in
-          if let error = error {
-            print("Error!!! \(error.localizedDescription)")
-          }
-          do {
-            if let data = data {
-              let deck = try JSONDecoder().decode(Deck.self, from: data)
-              self.deckId = deck.deck_id
-                return onSucess(self.deckId)
+            if let error = error {
+                print("Error!!! \(error.localizedDescription)")
             }
-          } catch {
-            print("erro")
-          }
+            do {
+                if let data = data {
+                    let deck = try JSONDecoder().decode(Deck.self, from: data)
+                    onSucess(deck.deck_id)
+                }
+            } catch {
+                print("erro")
+            }
         }
         task.resume()
     }
@@ -82,8 +78,8 @@ class MainInteractor:MainViewProtocol {
             
             do {
                 if let data = data {
-                    let datar = try JSONDecoder().decode(Response.self, from: data)
-                    onSucess(datar.self)
+                    let card = try JSONDecoder().decode(Response.self, from: data)
+                    onSucess(card)
                 }
             } catch {
                  print("erro \(error) ")
@@ -92,4 +88,5 @@ class MainInteractor:MainViewProtocol {
         }
             task.resume()
     }
+    
 }
