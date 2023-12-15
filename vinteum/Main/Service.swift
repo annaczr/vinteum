@@ -1,19 +1,23 @@
+//
+//  service.swift
+//  vinteum
+//
+//  Created by Mirella Miyakawa on 15/12/23.
+//
+
 import Foundation
 
 // classes de retorno
 struct Card: Codable {
     
     var code: String;
-    
     var value: String;
-    
     var suit: String;
 }
 
 struct Response: Codable{
     
     var deck_id: String;
-    
     var cards: [Card];
 }
 
@@ -22,15 +26,12 @@ struct Deck: Codable {
     var deck_id: String;
 }
 
-protocol MainViewProtocol {
+protocol ServiceInterface {
     func newDeck(onSucess: @escaping (String)-> Void) -> Void
     func newCard(deckId:String, onSucess: @escaping (Response) -> Void) -> Void
 }
 
-
-
-class MainInteractor:MainViewProtocol {
-    
+class Service: ServiceInterface {
     // variáveis
     private var deckId: String = ""
     

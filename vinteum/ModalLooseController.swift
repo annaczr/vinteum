@@ -70,7 +70,7 @@ class ModalLooseController:UIViewController{
         
         let modalLoose = ModalLooseController()
         
-        let viewController = ViewController()
+        let viewController = HomeViewController()
                 
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
             let navigationController = UINavigationController(rootViewController: modalLoose)
