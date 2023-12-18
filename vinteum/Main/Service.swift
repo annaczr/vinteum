@@ -53,7 +53,8 @@ class Service: ServiceInterface {
             do {
                 if let data = data {
                     let deck = try JSONDecoder().decode(Deck.self, from: data)
-                    onSucess(deck.deck_id)
+                    let deckId = deck.deck_id
+                    onSucess(deckId)
                 }
             } catch {
                 print("erro")

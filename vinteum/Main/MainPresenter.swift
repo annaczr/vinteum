@@ -9,13 +9,14 @@ import Foundation
 import UIKit
 
 protocol MainPresenterInterface {
-    func totalPoints(total: Int, card:Response, deck: UIImageView)
+    func totalPoints(total: Int, card:Response)
     
 }
 
 class MainPresenter: MainPresenterInterface {
+    
     let coordinator: MainCoordinatorInterface
-    let viewController: MainViewControllerInterface
+    var viewController: MainViewControllerInterface?
     
     init(coordinator: MainCoordinatorInterface){
         self.coordinator = coordinator
@@ -23,36 +24,26 @@ class MainPresenter: MainPresenterInterface {
     
     func totalPoints(total: Int, card:Response) {
         //configuração visual -> chama o coordinator
-    
-        DispatchQueue.main.async { //weak
-            self.viewController.showCard(code:card.cards[0].code)
-        }
+        
+       
+        self.viewController?.showPoints(total: total)
+
+        self.viewController?.showCard(code:card.cards[0].code)
         
         if (total > 21){
             //Retirando funcionalidade de comprar cartas
-            let click = UITapGestureRecognizer(target: self, action: #selector(MainInteractor.drawCard))
-            DispatchQueue.main.asyncAfter(deadline: .now()+2){
-                deck.removeGestureRecognizer(click)
-                //Adicionando o modal de derrota
-                let modalLoose = ModalLooseController()
-                modalLoose.modalPresentationStyle = .currentContext
-
-                self.present(modalLoose, animated: true, completion: nil, ty)
-            }
+            
+            self.viewController?.removeClick()
+            self.coordinator.showDefeat()
+            
         }
         
         else if (total == 21){
             //Retirando funcionalidade de comprar cartas
-            let click = UITapGestureRecognizer(target: self, action: #selector(self.drawCard))
-            DispatchQueue.main.asyncAfter(deadline: .now()+2){
-                deck.removeGestureRecognizer(click)
-                //Abrindo o modal de vitoria
-                let modalVictory = ModalVictoryController()
-                modalVictory.modalPresentationStyle = .currentContext
-
-                self.present(modalVictory, animated: true, completion: nil)
-            }
-        }
+            self.viewController?.removeClick()
+            self.coordinator.showVictory()
         
+        }
+
     }
 }

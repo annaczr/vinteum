@@ -10,11 +10,13 @@ import SnapKit
 
 protocol MainViewControllerInterface {
     func showCard(code:String)
+    func removeClick()
+    func showPoints(total: Int)
 }
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, MainViewControllerInterface {
     
-    let deckId:String;
+    var deckId:String = "";
     
    var interactor: MainInteractor?
    init(interactor: MainInteractor) {
@@ -25,10 +27,6 @@ class MainViewController: UIViewController {
    required init?(coder: NSCoder) {
        fatalError("init(coder:) has not been implemented")
    }
-    
-    func showCard(code: String){
-        stackView.addArrangedSubview(self.imageCard(name: code))
-    }
     
     //Criando botão de parada
     private let button: UIButton = {
@@ -82,12 +80,10 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         //Chamando função de criação de Deck
-//        let mainInteractor = MainInteractor()
-//        mainInteractor.newDeck(){ deckId in
-//            self.deckId = deckId
-//            //Comprando uma carta automaticamente para o usuario
-//            self.drawCard()
-//        }
+        
+        self.deckId = (interactor?.newDeck())!
+        print(self.deckId)
+
         
         //Settando background branco
         self.view.backgroundColor = .white
@@ -120,6 +116,28 @@ class MainViewController: UIViewController {
     
     @objc
     func drawCard(){
-        interactor?.drawCard(deckId: self.deckId)
+        DispatchQueue.main.async{
+            self.interactor?.drawCard(deckId: self.deckId)
+        }
+    }
+    
+    func showCard(code: String){
+        DispatchQueue.main.async {
+            self.stackView.addArrangedSubview(self.imageCard(name: code))
+        }
+    }
+    
+    @objc
+    func removeClick(){
+        DispatchQueue.main.async{
+            let click = UITapGestureRecognizer(target: self, action: #selector(self.drawCard))
+            self.deck.removeGestureRecognizer(click)
+        }
+    }
+    
+    func showPoints(total: Int){
+        DispatchQueue.main.async {
+            self.cont.text = "Total: \(total)"
+        }
     }
 }

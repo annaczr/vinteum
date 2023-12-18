@@ -9,7 +9,9 @@ import Foundation
 import UIKit
 
 protocol MainInteractorInterface {
-    func drawCard(deckId: String) -> (total: Int, card: Response)
+    func drawCard(deckId: String)
+    func newDeck() -> String
+    func getDeckId() -> String
 }
 
 //Criando a struct do Deck de cartas
@@ -22,18 +24,24 @@ struct Cards: Codable {
 class MainInteractor: MainInteractorInterface {
     
     //Criando as variaveis a serem usadas
+    private let service:ServiceInterface;
     private var total:Int = 0
     private var deckId:String = ""
-    private var card:Response;
     let presenter:MainPresenterInterface;
     
-    init(presenter: MainPresenterInterface){
+    init(presenter: MainPresenterInterface, service: ServiceInterface){
         self.presenter = presenter
+        self.service = service
+    }
+    
+    func getDeckId() -> String {
+        return self.deckId
     }
     
     //lógica das func
-    func drawCard(deckId: String) -> (total: Int, card: Response) {
-            
+    func drawCard(deckId: String) {
+        
+        service.newCard(deckId: deckId){card in
             if(card.cards[0].value.uppercased() == "QUEEN" || card.cards[0].value.uppercased() == "JACK" || card.cards[0].value.uppercased() == "KING"){
                 self.total += 10
             }
@@ -44,7 +52,16 @@ class MainInteractor: MainInteractorInterface {
                 self.total += Int(card.cards[0].value)!
             }
             
-        return (self.total, card)
+            self.presenter.totalPoints(total: self.total, card: card)
+        }
+    }
+    
+    func newDeck() -> String {
+        var idDeck:String = ""
+        self.service.newDeck(){deckId in
+            idDeck = deckId
+        }
+        return idDeck
     }
 }
 

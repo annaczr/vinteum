@@ -39,7 +39,7 @@ class ModalVictoryController:UIViewController{
         self.view.backgroundColor = .white
         
         //Settando titulo da pagina
-        self.titulo.text = "you won!\ntotal:\(self.total)"
+        self.titulo.text = "you won!\ntotal:\(self.total)" 
         self.view.addSubview(self.titulo)
         self.titulo.snp.makeConstraints{ make in
               make.centerX.equalToSuperview()
@@ -67,10 +67,11 @@ class ModalVictoryController:UIViewController{
         }
     }
     @objc private func newGame(){
+        // criar o coordinator
                 
         let modalVictory = ModalVictoryController()
         
-        let viewController = ViewController()
+        let viewController = HomeFactory.make()
                 
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
             let navigationController = UINavigationController(rootViewController: modalVictory)

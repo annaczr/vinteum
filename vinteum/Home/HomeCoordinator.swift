@@ -7,7 +7,7 @@ class HomeCoordinator: HomeCoordinatorInterface {
         guard let navigationController = viewController?.navigationController else {
             return
         }
-        let mainController = MainViewController(interactor: )
+        let mainController = MainFactory.make()
         navigationController.pushViewController(mainController, animated: true)
     }
 }
