@@ -12,12 +12,13 @@ protocol MainViewControllerInterface {
     func showCard(code:String)
     func removeClick()
     func showPoints(total: Int)
+    func stopLoading()
 }
 
 class MainViewController: UIViewController, MainViewControllerInterface {
-    
-    var deckId:String = "";
-    
+
+    var click: UITapGestureRecognizer?
+   var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .gray)
    var interactor: MainInteractor?
    init(interactor: MainInteractor) {
        super.init(nibName: nil, bundle: nil)
@@ -80,9 +81,10 @@ class MainViewController: UIViewController, MainViewControllerInterface {
         super.viewDidLoad()
         
         //Chamando função de criação de Deck
+        self.view.addSubview(activityIndicator)
+        interactor?.newDeck()
         
-        self.deckId = (interactor?.newDeck())!
-        print(self.deckId)
+        self.click = UITapGestureRecognizer(target: self, action: #selector(self.drawCard))
 
         
         //Settando background branco
@@ -91,8 +93,7 @@ class MainViewController: UIViewController, MainViewControllerInterface {
         //Adicionado e colocando funcionalidade no botão de comprar cartas
         self.view.addSubview(self.deck)
         
-        let click = UITapGestureRecognizer(target: self, action: #selector(self.drawCard))
-        self.deck.addGestureRecognizer(click)
+        self.deck.addGestureRecognizer(self.click!)
         
         self.deck.snp.makeConstraints{ make in
             make.centerX.equalToSuperview()
@@ -117,7 +118,13 @@ class MainViewController: UIViewController, MainViewControllerInterface {
     @objc
     func drawCard(){
         DispatchQueue.main.async{
-            self.interactor?.drawCard(deckId: self.deckId)
+            self.interactor?.drawCard()
+        }
+    }
+    
+    func stopLoading(){
+        DispatchQueue.main.async {
+            self.activityIndicator.removeFromSuperview()
         }
     }
     
@@ -129,9 +136,8 @@ class MainViewController: UIViewController, MainViewControllerInterface {
     
     @objc
     func removeClick(){
-        DispatchQueue.main.async{
-            let click = UITapGestureRecognizer(target: self, action: #selector(self.drawCard))
-            self.deck.removeGestureRecognizer(click)
+        DispatchQueue.main.async {
+            self.deck.removeGestureRecognizer(self.click!)
         }
     }
     

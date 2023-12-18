@@ -26,7 +26,7 @@ class ModalLooseController:UIViewController{
     
     private let bomb: UIImageView = {
         let cards = UIImageView()
-        let baralho = UIImage(named: "Bomb")
+        let baralho = UIImage(named: "bomb")
         cards.image = baralho
         cards.isUserInteractionEnabled = true
         return cards

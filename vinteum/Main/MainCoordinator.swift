@@ -17,18 +17,22 @@ class MainCoordinator: MainCoordinatorInterface {
     
     weak var viewController: UIViewController?
     
-    func showVictory() {
+    func showDefeat() {
         //Adicionando o modal de derrota
-        let modalLoose = ModalLooseController()
-        modalLoose.modalPresentationStyle = .currentContext
-        viewController?.present(modalLoose, animated: true, completion: nil)
+        DispatchQueue.main.asyncAfter(deadline: .now()+1) { [self] in
+            let modalLoose = ModalLooseController()
+            modalLoose.modalPresentationStyle = .currentContext
+            self.viewController?.present(modalLoose, animated: true, completion: nil)
+        }
     }
     
-    func showDefeat() {
+    func showVictory() {
         //Abrindo o modal de vitoria
-        let modalVictory = ModalVictoryController()
-        modalVictory.modalPresentationStyle = .currentContext
-        viewController?.present(modalVictory, animated: true, completion: nil)
+        DispatchQueue.main.asyncAfter(deadline: .now()+1)  {
+            let modalVictory = ModalVictoryController()
+            modalVictory.modalPresentationStyle = .currentContext
+            self.viewController?.present(modalVictory, animated: true, completion: nil)
+        }
     }
     
 }

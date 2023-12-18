@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 
 protocol MainInteractorInterface {
-    func drawCard(deckId: String)
-    func newDeck() -> String
+    func drawCard()
+    func newDeck()
     func getDeckId() -> String
 }
 
@@ -39,8 +39,7 @@ class MainInteractor: MainInteractorInterface {
     }
     
     //lógica das func
-    func drawCard(deckId: String) {
-        
+    func drawCard() {
         service.newCard(deckId: deckId){card in
             if(card.cards[0].value.uppercased() == "QUEEN" || card.cards[0].value.uppercased() == "JACK" || card.cards[0].value.uppercased() == "KING"){
                 self.total += 10
@@ -56,12 +55,11 @@ class MainInteractor: MainInteractorInterface {
         }
     }
     
-    func newDeck() -> String {
-        var idDeck:String = ""
+    func newDeck() {
         self.service.newDeck(){deckId in
-            idDeck = deckId
+            self.deckId = deckId
+            self.presenter.stopLoading()
         }
-        return idDeck
     }
 }
 

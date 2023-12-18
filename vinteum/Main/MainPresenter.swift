@@ -10,7 +10,7 @@ import UIKit
 
 protocol MainPresenterInterface {
     func totalPoints(total: Int, card:Response)
-    
+    func stopLoading()
 }
 
 class MainPresenter: MainPresenterInterface {
@@ -25,19 +25,16 @@ class MainPresenter: MainPresenterInterface {
     func totalPoints(total: Int, card:Response) {
         //configuração visual -> chama o coordinator
         
-       
         self.viewController?.showPoints(total: total)
 
         self.viewController?.showCard(code:card.cards[0].code)
         
         if (total > 21){
             //Retirando funcionalidade de comprar cartas
-            
             self.viewController?.removeClick()
             self.coordinator.showDefeat()
             
         }
-        
         else if (total == 21){
             //Retirando funcionalidade de comprar cartas
             self.viewController?.removeClick()
@@ -45,5 +42,8 @@ class MainPresenter: MainPresenterInterface {
         
         }
 
+    }
+    func stopLoading() {
+        self.viewController?.stopLoading()
     }
 }
